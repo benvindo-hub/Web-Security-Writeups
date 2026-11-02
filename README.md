@@ -1,6 +1,6 @@
 # Web-Security-Writeups - PortSwigger SQLi Labs
 
-## Lab 4: SQL Injection UNION attack, retrieving data from other tables
+## Lab 5: SQL Injection UNION attack, retrieving data from other tables
 
 **Objetivo:** Descobrir o número total de colunas e depois achar as senhas dos usuários no filtro categoria.
 
