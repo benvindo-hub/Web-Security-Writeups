@@ -1,16 +1,15 @@
 # Web-Security-Writeups - PortSwigger SQLi Labs
 
-## Lab 2: SQL Injection vulnerability allowing login bypass
+## Lab 3: SQL Injection UNION attack, determining the number of columns returned by the query
 
-**Objetivo:** Descobrir vulnerabilidade na função login.
+**Objetivo:** Descobrir o número total de colunas através do filtro de categoria.
 
 **Vulnerabilidade encontrada:**
-O campo `?username` e `password` estava concatenando direto no SQL. Ao injetar `'` deu erro 500.
+no parâmetro `?Category=` estava concatenando direto no SQL. Ao injetar `'` deu erro 500.
 
 **Meu processo:**
-1. No campo username inseri o nome do administrador `Administrator` seguido da injeção `'--'.
-2. No campo password inseri caracter aleatório porque será ignorado, e por fim consegui acesso.
+1. Descobri o número de colunas com `'+UNION+SELECT+NULL,NULL,NULL,NULL--' são 3 colunas.
 
 **Payload final:**
 ```sql
-'--
+'+UNION+SELECT+NULL,NULL,NULL,NULL--
